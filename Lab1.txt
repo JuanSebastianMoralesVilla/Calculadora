@@ -1,0 +1,434 @@
+import java.util.Scanner;
+import java.lang.Math;
+
+// inicio de clase Lab  Sebastian3217938337
+public class Lab1 {
+
+    public Scanner reader = new Scanner(System.in);
+
+    public static double num1 = 0, num2 = 0, result;
+    public static double PI = 3.14;
+    public static int op, mode, tipo, cifra, menu;
+
+    public static void main(String[] arg) {
+
+        Scanner reader = new Scanner(System.in);
+
+        tipe();
+
+    }
+
+    public static void tipe() {
+        Scanner reader = new Scanner(System.in);
+
+        System.out.print("Con cual modo desea operar la calculadora:\n"
+                + "1.modo de una sola operacion a la vez. \n"
+                + "2.flujo de operaciones. \n " + "\n");
+
+        mode = reader.nextInt();
+
+        switch (mode) {
+            // una operacion a la vez
+            case 1:
+                Menu();
+
+                break;
+            // flujo de operaciones
+            case 2:
+                break;
+
+            default:
+                System.out.println("Numero invalido");
+                break;
+
+        }
+    }
+
+    public static void Menu() {
+        // fin sea falso repite el ciclo 
+
+        boolean end = false;
+        while (!end) {
+            Scanner reader = new Scanner(System.in);
+            System.out.print("\n" + "\nQue operacion desea realizar? \n"
+                    + "1.SUMA\n"
+                    + "2.RESTA\n"
+                    + "3.DIVISION\n"
+                    + "4.MULTIPLICACION\n"
+                    + "5.MODULO\n"
+                    + "6.RAIZ CUADRADA\n"
+                    + "7.POTENCIACION\n"
+                    + "8.EL FACTORIAL DE UN NUMERO\n"
+                    + "9.CONVERSION ENTRE BINARIOS DECIMALES Y HEXADECIMALES\n"
+                    + "10.BASE 10 DE UN NUMERO X( NOTACION CIENTIFICA).\n"
+                    + "11.SENO\n"
+                    + "12.COSENO\n"
+                    + "13.TANGENTE\n"
+                    + "14.LOGARITMO BASE X \n"
+                    + "15.RAIZ N-ESIMA\n"
+                    + "16.SALIR\n" + "\n");
+            int op = reader.nextInt();
+            int menu = op;
+            if (op >= 1 && op <= 5) {
+                menu = 1;
+            }
+
+            switch (menu) {
+                case 1:
+                    System.out.print("Ingrese numero 1 :");
+                    num1 = reader.nextDouble();
+                    System.out.print("Ingrese numero 2 :");
+                    num2 = reader.nextDouble();
+                    break;
+                case 6:
+                    System.out.print("Ingrese el numero que desee sacarle raiz cuadrada  :");
+                    num1 = reader.nextDouble();
+                    break;
+
+                case 7:
+                    System.out.print("Ingrese base la potencia  :");
+                    num1 = reader.nextDouble();
+                    System.out.print("Ingrese exponente al cual va a ser elevado la potencia1 :");
+                    num2 = reader.nextDouble();
+                    break;
+
+                case 8:
+                    System.out.print("Ingrese el numero para sacarle factorial :");
+                    num1 = reader.nextDouble();
+                    break;
+
+                case 9:
+                    System.out.print("Ingrese una cifra (entera) para darle un valor hexadecimal y decimal : ");
+                    cifra = reader.nextInt();
+                    break;
+
+                case 10:
+                    System.out.print("Ingrese numero entero positivo para logaritmo base 10 :");
+                    num1 = reader.nextDouble();
+
+                    break;
+
+                case 11:
+                    System.out.println(" Ingrese los grados para sacar el seno : ");
+                    num1 = reader.nextDouble();
+                    break;
+
+                case 12:
+                    System.out.println(" Ingrese los grados para sacar el coseno : ");
+                    num1 = reader.nextDouble();
+                    break;
+
+                case 13:
+                    System.out.println(" Ingrese los grados para sacar el tangente : ");
+                    num1 = reader.nextDouble();
+                    break;
+                    
+                    
+                case 14:
+                    break;
+                    
+                case 15:
+                    System.out.print("Ingrese el radicando  :");
+                    num1 = reader.nextDouble();
+                    System.out.print("Ingrese el indice :");
+                    num2 = reader.nextDouble();
+                    
+                    break;
+                case 16:
+                    end = true;
+                    break;
+
+                default:
+                    System.out.println("Numero invalido");
+                    break;
+
+            }
+            operations(op);
+        }
+    }
+
+    public static int operations(int op) {
+
+        switch (op) {
+            case 1:
+                result = suma(num1, num2);
+
+                System.out.println(num1 + " +  " + num2 + " = " + result);
+                break;
+
+            case 2:
+                result = resta(num1, num2);
+                System.out.println(num1 + " -  " + num2 + " = " + result);
+                break;
+            case 3:
+                result = division(num1, num2);
+                System.out.println(num1 + " /  " + num2 + " = " + result);
+                break;
+            case 4:
+                result = multiplicacion(num1, num2);
+                System.out.println(num1 + " *  " + num2 + " = " + result);
+                break;
+            case 5:
+                result = modulo(num1, num2);
+                System.out.println(num1 + " % " + num2 + " = " + result);
+                break;
+            case 6:
+
+                result = squareRoot(num1);
+                System.out.println(result);
+                break;
+            case 7:
+                result = potencia(num1, num2);
+                System.out.println(num1 + " ^  " + num2 + " = " + result
+                );
+                break;
+
+            case 8:
+                result = factorial(num1);
+                System.out.println("El factorial de " + num1 + " es :  " + result);
+                break;
+            case 9:
+                String resultBinary = decimaltoBinary(cifra);
+                String resultHex = decimaltoHex(cifra);
+                System.out.println("El numero decimal ingresado es: " + cifra);
+                System.out.println("El número convertido a binario es: " + resultBinary);
+                System.out.println("El numero convertido a hexadecimal es: " + resultHex);
+                break;
+
+            case 10:
+                result = logaritmoBase10(num1);
+
+                break;
+
+            case 11:
+                result = seno(num1);
+
+                break;
+
+            case 12:
+                result = coseno(num1);
+
+                break;
+            case 13:
+                result = tangente(num1);
+
+                break;
+            case 14:
+                break;
+                
+            case 15:
+       
+                 System.out.println("indice = " + num2 + "  "+" radicando = " + num1 + "  " + result);
+                break;
+
+        }
+        return op;
+    }
+
+    // CONTRATO SUMA
+    public static double suma(double num1, double num2) {
+
+        result = num1 + num2;
+
+        return result;
+    }
+// CONTRATO RESTA
+
+    public static double resta(double num1, double num2) {
+
+        result = num1 - num2;
+
+        return result;
+    }
+// CONTRATO MULTIPLICACION
+
+    public static double multiplicacion(double num1, double num2) {
+
+        result = num1 * num2;
+
+        return result;
+    }
+//CONTRATO DIVISION
+
+    public static double division(double num1, double num2) {
+
+        result = num1 / num2;
+
+        return result;
+    }
+//CONTRATO DIVISION
+
+    public static double modulo(double num1, double num2) {
+
+        result = num1 % num2;
+
+        return result;
+    }
+    // contrato raiz pre numero positivo parametro numero entero o decimal, post acerca el double posoitivo para llegar a su raiz, retunr retorna una raiz  expected que no sea un numero  negativo 
+
+    public static double squareRoot(double x) {
+// creation and assignment of variables
+// -------------------------
+        double cotaSup, cotaInf = 0, puntoM = 0, root = 0, previous = 0;
+        boolean end = false;
+        cotaSup = (x > 1) ? x : 1;
+
+        if (x != 0 && x != 1) {
+            while (!end) {
+                puntoM = (cotaSup + cotaInf) / 2;
+                if ((puntoM * puntoM) > x) {
+                    cotaSup = puntoM;
+                } else if ((puntoM * puntoM) < x) {
+                    cotaInf = puntoM;
+                } else if ((puntoM * puntoM) == x) {
+                    root = puntoM;
+                }
+                if (puntoM == previous) {
+                    root = puntoM;
+                    end = true;
+                }
+                if (!(Math.abs((x - (puntoM * puntoM))) > 0.00000000000001)) {
+                    root = puntoM;
+                    end = true;
+                }
+                previous = puntoM;
+            }
+        } else {
+            if (x == 0) {
+                return 0;
+            } else {
+                return 1;
+            }
+        }
+        return root;
+    }
+
+    public static double potencia(double num1, double num2) {
+        // num1 = base de la potencia 
+        // num2 = exponente
+
+        double potencia = 1;
+        for (int i = 0; i < num2; i++) {
+            potencia *= num1;
+            result = potencia;
+        }
+        return potencia;
+    }
+
+    public static double factorial(double num1) {
+
+        int result = 1;
+        for (int i = 1; i <= num1; i++) {
+            result *= i;
+        }
+
+        return result;
+
+    }
+
+    public static String decimaltoBinary(double num1) {
+
+        String binario = "";
+        if (num1 > 0) {
+            while (num1 > 0) {
+                if (num1 % 2 == 0) {
+                    binario = "0" + binario;
+                } else {
+                    binario = "1" + binario;
+                }
+                num1 = (int) num1 / 2;
+            }
+        } else if (num1 == 0) {
+            binario = "0";
+        } else {
+            binario = "No se pudo convertir el numero. Ingrese solo números positivos";
+        }
+
+        return binario;
+    }
+
+    public static String decimaltoHex(double num1) {
+        char digitosH[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+
+        String hexadecimal2 = " ";
+        int resto;
+        while (cifra > 0) {
+            resto = cifra % 16;
+            hexadecimal2 = digitosH[resto] + hexadecimal2;
+            cifra /= 16;
+        }
+
+        return hexadecimal2;
+    }
+
+    public static double degretoradians_radTodegrees(double num1) {
+        double angGrados = num1; //grados
+
+        double angRadianes = Math.toRadians(angGrados);
+        System.out.println("Deg a Rad: " + angGrados + "º = " + angRadianes + " rad");
+
+        angGrados = Math.toDegrees(angRadianes);
+        System.out.println("Rad a Deg: " + angRadianes + " rad = " + angGrados + "º");
+
+        return result;
+    }
+
+    public static double seno(double num1) {
+        double angulo = num1; //grados
+        double anguloRadianes = Math.toRadians(angulo);
+        result = Math.sin(anguloRadianes);
+        System.out.println("Seno de " + angulo + "º = " + result);
+
+        return result;
+    }
+
+    public static double coseno(double num1) {
+
+        double angulo = num1; //grados
+        double anguloRadianes = Math.toRadians(angulo);
+        result = Math.cos(anguloRadianes);
+        System.out.println("Coseno de " + angulo + "º = " + result);
+        return result;
+    }
+
+    public static double tangente(double num1) {
+        double angulo = num1; //grados
+        double anguloRadianes = Math.toRadians(angulo);
+        result = Math.tan(anguloRadianes);
+        System.out.println("Tangente de " + angulo + "º = " + result);
+        return result;
+    }
+
+    public static double logaritmoBase10(double num1) {
+
+        if (num1 > 0) {
+            System.out.println(Math.log10(num1));
+        } else {
+            System.out.println("numero invalido");
+            Menu();
+        }
+        return result;
+    }
+    
+    
+    // duda con este metodo.
+    
+public double raiznesima (double num1 , double num2){
+
+    double n= num1;
+        
+        double root = num2;
+       if ( n < 0 ){
+        System.out.println("no existe raiz de um numero negativo");
+      } 
+
+      if (root == 1){
+             
+             result= Math.pow(n, 1.0/root);
+      }
+        return result;
+
+}
+
+}
+// fin de llave Lab
